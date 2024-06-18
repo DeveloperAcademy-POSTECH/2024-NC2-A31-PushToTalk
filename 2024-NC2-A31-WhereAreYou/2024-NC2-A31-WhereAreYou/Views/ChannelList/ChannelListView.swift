@@ -10,7 +10,7 @@ import SwiftUI
 struct ChannelListView: View {
     var body: some View {
         Text("ChannelListView")
-            .font(.galmuri9)
+            .font(.galmuri7)
     }
 }
 
