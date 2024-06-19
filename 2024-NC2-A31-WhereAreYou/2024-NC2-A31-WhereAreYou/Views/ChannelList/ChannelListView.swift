@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ChannelListView: View {
+    @ObservedObject var channelManagerWrapper = ChannelManagerWrapper()
     @State private var isPresented: Bool = false
     
     var body: some View {
@@ -37,23 +38,23 @@ struct ChannelListView: View {
                     }
                     .padding(.top, 20)
                     
-                    /// 채널 리스트
-                    ChannelBlockView(channelName: "구블구블", memberCount: 2)
-                        .padding(.vertical, 5)
-                    ChannelBlockView(channelName: "구블구블", memberCount: 2)
-                        .padding(.vertical, 5)
-                    ChannelBlockView(channelName: "구블구블", memberCount: 2)
-                        .padding(.vertical, 5)
-                    ChannelBlockView(channelName: "구블구블", memberCount: 2)
-                        .padding(.vertical, 5)
-                    ChannelBlockView(channelName: "구블구블", memberCount: 2)
-                        .padding(.vertical, 5)
+                    ForEach(channels, id: \.self) { channel in
+                        NavigationLink(destination: {
+                            ChannelDetailView(channel: channel)
+                        }, label: {
+                            ChannelBlockView(channelName: channel.description, memberCount: channel.memberCount)
+                                .padding(.vertical, 5)
+                        })
+                    }
                     
                     Spacer()
                 }
                 .sheet(isPresented: $isPresented, content: {
                     NewChannelView(isPresented: $isPresented)
                 })
+            }
+            .task {
+                await channelManagerWrapper.setupChannelManager()
             }
         }
     }

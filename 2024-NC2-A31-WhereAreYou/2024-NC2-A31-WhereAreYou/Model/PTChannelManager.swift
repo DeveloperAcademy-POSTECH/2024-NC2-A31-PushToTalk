@@ -24,6 +24,7 @@ class ChannelManagerWrapper: NSObject, ObservableObject, PTChannelManagerDelegat
     func setupChannelManager() async {
         do {
             self.channelManager = try await PTChannelManager.channelManager(delegate: self, restorationDelegate: self)
+            print("Channel Manager Success")
         } catch {
             print("Failed to setup channel manager: \(error.localizedDescription), \(error)")
         }
