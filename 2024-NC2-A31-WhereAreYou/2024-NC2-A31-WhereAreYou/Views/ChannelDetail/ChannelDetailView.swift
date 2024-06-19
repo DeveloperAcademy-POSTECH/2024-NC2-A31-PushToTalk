@@ -11,7 +11,7 @@ struct ChannelDetailView: View {
     var body: some View {
         VStack{
             Text("24 NC2 엡터눈")
-                .font(.galmuri9_2)
+                .font(.galmuri9_24)
                 .padding(.top ,20)
             
             // 멤버 이름
@@ -24,7 +24,7 @@ struct ChannelDetailView: View {
                         .stroke(Color.black, lineWidth: 2)
                         .overlay(alignment: .leading) {
                     Text("이민아 Dora")
-                        .font(.galmuri9)
+                        .font(.galmuri9_18)
                         .padding(.leading, 20)
                         }
                 )
@@ -40,7 +40,7 @@ struct ChannelDetailView: View {
                         .stroke(Color.black, lineWidth: 2)
                         .overlay(alignment: .leading) {
                     Text("구리스")
-                        .font(.galmuri9)
+                        .font(.galmuri9_18)
                         .padding(.leading, 20)
                         }
                 )
@@ -56,7 +56,7 @@ struct ChannelDetailView: View {
                         .stroke(Color.black, lineWidth: 2)
                         .overlay(alignment: .leading) {
                     Text("린")
-                        .font(.galmuri9)
+                        .font(.galmuri9_18)
                         .padding(.leading, 20)
                         }
                 )
@@ -72,7 +72,7 @@ struct ChannelDetailView: View {
                         .stroke(Color.black, lineWidth: 2)
                         .overlay(alignment: .leading) {
                     Text("브리")
-                        .font(.galmuri9)
+                        .font(.galmuri9_18)
                         .padding(.leading, 20)
                         }
                 )
@@ -88,7 +88,7 @@ struct ChannelDetailView: View {
                         .stroke(Color.black, lineWidth: 2)
                         .overlay(alignment: .leading) {
                     Text("제로")
-                        .font(.galmuri9)
+                        .font(.galmuri9_18)
                         .padding(.leading, 20)
                         }
                 )
@@ -104,7 +104,7 @@ struct ChannelDetailView: View {
                         .stroke(Color.black, lineWidth: 2)
                         .overlay(alignment: .leading) {
                     Text("큐")
-                        .font(.galmuri9)
+                        .font(.galmuri9_18)
                         .padding(.leading, 20)
                         }
                 )

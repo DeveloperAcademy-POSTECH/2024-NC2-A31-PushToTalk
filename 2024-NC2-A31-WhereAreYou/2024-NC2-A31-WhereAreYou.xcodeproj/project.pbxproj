@@ -18,6 +18,7 @@
 		B9CC0A282C1EBF000094AEAB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CC0A272C1EBF000094AEAB /* ContentView.swift */; };
 		B9CC0A2A2C1EBF010094AEAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9CC0A292C1EBF010094AEAB /* Assets.xcassets */; };
 		B9CC0A2D2C1EBF010094AEAB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9CC0A2C2C1EBF010094AEAB /* Preview Assets.xcassets */; };
+		B9EC5A672C22E93A0031437B /* ChannelBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EC5A662C22E93A0031437B /* ChannelBlockView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		B9CC0A272C1EBF000094AEAB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B9CC0A292C1EBF010094AEAB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B9CC0A2C2C1EBF010094AEAB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B9EC5A662C22E93A0031437B /* ChannelBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelBlockView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 			children = (
 				B96ADBD12C204DA400CF5F6F /* ChannelListView.swift */,
 				B96ADBD42C204DCB00CF5F6F /* NewChannelView.swift */,
+				B9EC5A662C22E93A0031437B /* ChannelBlockView.swift */,
 			);
 			path = ChannelList;
 			sourceTree = "<group>";
@@ -218,6 +221,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9EC5A672C22E93A0031437B /* ChannelBlockView.swift in Sources */,
 				B96ADBCB2C204B5000CF5F6F /* Font+.swift in Sources */,
 				B96ADBD72C204DFA00CF5F6F /* ChannelDetailView.swift in Sources */,
 				B9CC0A282C1EBF000094AEAB /* ContentView.swift in Sources */,

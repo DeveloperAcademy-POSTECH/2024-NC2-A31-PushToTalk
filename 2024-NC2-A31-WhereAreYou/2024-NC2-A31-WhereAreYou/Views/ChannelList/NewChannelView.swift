@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NewChannelView: View {
     @State private var channelNameText: String = ""
+    @Binding var isPresented: Bool
     
     var body: some View {
         NavigationStack {
@@ -60,7 +61,7 @@ struct NewChannelView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
-                        
+                        isPresented.toggle()
                     } label: {
                         Text(StringLiterals.Modal.cancel)
                             .fontWeight(.medium)
@@ -70,7 +71,7 @@ struct NewChannelView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        
+                        isPresented.toggle()
                     } label: {
                         Text(StringLiterals.Modal.save)
                             .fontWeight(.medium)
@@ -84,5 +85,5 @@ struct NewChannelView: View {
 }
 
 #Preview {
-    NewChannelView()
+    NewChannelView(isPresented: .constant(true))
 }
