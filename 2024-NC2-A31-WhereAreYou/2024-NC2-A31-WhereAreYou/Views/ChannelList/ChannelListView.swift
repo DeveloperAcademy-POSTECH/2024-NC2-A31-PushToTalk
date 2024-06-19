@@ -50,25 +50,17 @@ struct ChannelListView: View {
             .sheet(isPresented: $isPresented, content: {
                 NewChannelView(isPresented: $isPresented)
             })
+            
+            Text("ChannelListView")
         }
+        .task {
+            await channelManagerWrapper.setupChannelManager()
+        }
+        .sheet(isPresented: $isPresented, content: {
+            NewChannelView()
+        })
     }
 }
-
-struct MyBackButton: View {
-    @Environment(\.presentationMode) var presentationMode
-    var color: Color
-    var body: some View {
-        Button(action: {
-            presentationMode.wrappedValue.dismiss()
-        }) {
-            HStack {
-                Image(systemName: "chevron.left")
-                    .foregroundColor(color)
-            }
-        }
-    }
-}
-
 
 #Preview {
     ChannelListView()
