@@ -9,10 +9,134 @@ import SwiftUI
 
 struct ChannelDetailView: View {
     var body: some View {
-        Text("ChannelDetailView")
-            .font(.galmuri7)
+        VStack{
+            Text("24 NC2 엡터눈")
+                .font(.galmuri9_2)
+                .padding(.top ,20)
+            
+            // 멤버 이름
+            Rectangle()
+                .foregroundStyle(.button)
+                .frame(width: 360, height: 54)
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.black, lineWidth: 2)
+                        .overlay(alignment: .leading) {
+                    Text("이민아 Dora")
+                        .font(.galmuri9)
+                        .padding(.leading, 20)
+                        }
+                )
+                .padding(.top)
+            
+            // 멤버 이름
+            Rectangle()
+                .foregroundStyle(.button)
+                .frame(width: 360, height: 54)
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.black, lineWidth: 2)
+                        .overlay(alignment: .leading) {
+                    Text("구리스")
+                        .font(.galmuri9)
+                        .padding(.leading, 20)
+                        }
+                )
+                .padding(.top, 10)
+            
+            // 멤버 이름
+            Rectangle()
+                .foregroundStyle(.button)
+                .frame(width: 360, height: 54)
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.black, lineWidth: 2)
+                        .overlay(alignment: .leading) {
+                    Text("린")
+                        .font(.galmuri9)
+                        .padding(.leading, 20)
+                        }
+                )
+                .padding(.top, 10)
+            
+            // 멤버 이름
+            Rectangle()
+                .foregroundStyle(.button)
+                .frame(width: 360, height: 54)
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.black, lineWidth: 2)
+                        .overlay(alignment: .leading) {
+                    Text("브리")
+                        .font(.galmuri9)
+                        .padding(.leading, 20)
+                        }
+                )
+                .padding(.top, 10)
+            
+            // 멤버 이름
+            Rectangle()
+                .foregroundStyle(.button)
+                .frame(width: 360, height: 54)
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.black, lineWidth: 2)
+                        .overlay(alignment: .leading) {
+                    Text("제로")
+                        .font(.galmuri9)
+                        .padding(.leading, 20)
+                        }
+                )
+                .padding(.top, 10)
+            
+            // 멤버 이름
+            Rectangle()
+                .foregroundStyle(.button)
+                .frame(width: 360, height: 54)
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.black, lineWidth: 2)
+                        .overlay(alignment: .leading) {
+                    Text("큐")
+                        .font(.galmuri9)
+                        .padding(.leading, 20)
+                        }
+                )
+                .padding(.top, 10)
+            
+//            Rectangle()
+//                .foregroundStyle(.button)
+//                .frame(width: 360, height: 54)
+//                .cornerRadius(10)
+//                .overlay(
+//                    RoundedRectangle(cornerRadius: 10)
+//                        .stroke(Color.black, lineWidth: 2)
+//                        .overlay(alignment: .leading) {
+//                    Text("큐")
+//                        .font(.galmuri9)
+//                        .padding(.leading, 20)
+//                        }
+//                )
+//                .padding(.top, 10)
+            
+            Spacer()
+            
+            Image(.talkButton)
+                .padding(.bottom ,25)
+            
+        }
+                                .navigationBarBackButtonHidden(true)
+                                .navigationBarItems(leading: MyBackButton(color: Color("pointBlueColor")))
     }
 }
+
+
 
 #Preview {
     ChannelDetailView()
