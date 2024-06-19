@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ChannelListView: View {
+    @State private var isPresented: Bool = false
+    
     var body: some View {
         NavigationView{
             VStack{

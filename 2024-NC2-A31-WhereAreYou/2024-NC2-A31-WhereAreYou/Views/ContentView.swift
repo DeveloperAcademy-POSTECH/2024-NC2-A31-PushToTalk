@@ -14,7 +14,7 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundStyle(.pink)
             Text("구블구블")
-                .font(.galmuri9)
+
         }
         .padding()
     }

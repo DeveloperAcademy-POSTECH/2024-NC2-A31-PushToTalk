@@ -11,7 +11,7 @@ import SwiftUI
 struct _024_NC2_A31_WhereAreYouApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ChannelListView()
         }
     }
 }

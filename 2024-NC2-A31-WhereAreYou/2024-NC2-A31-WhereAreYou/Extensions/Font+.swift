@@ -10,6 +10,7 @@ import SwiftUI
 extension Font {
     // 추후 수정 필요
     static let galmuri7: Font = .custom("Galmuri7", size: 24)
+    static let galmuri9_18: Font = .custom("Galmuri9", size: 18)
+    static let galmuri9_20: Font = .custom("Galmuri9", size: 20)
     static let galmuri9_2: Font = .custom("Galmuri9", size: 24)
-    static let galmuri9: Font = .custom("Galmuri9", size: 20)
 }
