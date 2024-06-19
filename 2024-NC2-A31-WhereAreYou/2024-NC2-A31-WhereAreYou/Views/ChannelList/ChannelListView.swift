@@ -8,9 +8,21 @@
 import SwiftUI
 
 struct ChannelListView: View {
+    @State private var isPresented: Bool = false
+    
     var body: some View {
-        Text("ChannelListView")
-            .font(.galmuri9)
+        VStack {
+            Button(action: {
+                isPresented.toggle()
+            }, label: {
+                Image(.plusButton)
+            })
+            
+            Text("ChannelListView")
+        }
+        .sheet(isPresented: $isPresented, content: {
+            NewChannelView()
+        })
     }
 }
 
