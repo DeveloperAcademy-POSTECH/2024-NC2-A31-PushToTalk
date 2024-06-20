@@ -8,8 +8,21 @@
 import SwiftUI
 
 struct ChannelDetailView: View {
+    @ObservedObject var channelManagerWrapper = ChannelManagerWrapper()
     @State private var isTapped: Bool = false
     let channel: Channel
+    
+    @GestureState private var isDetectingLongPress = false
+    
+    /// Long Press Gesture
+    var longPress: some Gesture {
+        LongPressGesture(minimumDuration: 3)
+            .updating($isDetectingLongPress) { currentState, gestureState,
+                transaction in
+                gestureState = currentState
+                transaction.animation = Animation.easeIn(duration: 0.1)
+            }
+    }
     
     var body: some View {
         ZStack {
@@ -41,14 +54,16 @@ struct ChannelDetailView: View {
                 
                 Spacer()
                 
-                Image(isTapped ? .talkButtonPress : .talkButton)
+                Image(self.isDetectingLongPress ? .talkButtonPress : .talkButton)
                     .padding(.bottom ,25)
-                    .onTapGesture {
-                        isTapped.toggle()
-                    }
+                    .gesture(longPress)
             }
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: MyBackButton(color: .pointBlue))
+        }
+        .onAppear {
+            channelManagerWrapper.joinChannel(channelUUID: UUID(uuidString: channel.id)!,
+                                              description: channel.description)
         }
     }
 }
