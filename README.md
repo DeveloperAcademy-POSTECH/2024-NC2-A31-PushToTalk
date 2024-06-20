@@ -36,9 +36,9 @@
 
 ## 🖼️ Prototype
 
-|  채널 리스트 뷰 | ChannelDetailView  | ChannelDetailView에서 말할 때  | NewChannelView  |
+|  채널 리스트 뷰      | ChannelDetailView  | ChannelDetailView에서 말할 때  | NewChannelView  |
 |---|---|---|---|
-|<img width="200" alt="image" src="https://github.com/DeveloperAcademy-POSTECH/2024-NC2-A31-PushToTalk/assets/102604192/cae3e08d-be0f-4301-9a76-8e25d7c7ab71">|<img width="200" alt="image" src="https://github.com/DeveloperAcademy-POSTECH/2024-NC2-A31-PushToTalk/assets/102604192/0f836793-c079-4189-994a-8b81510d536e">|<img width="200" alt="image" src="https://github.com/DeveloperAcademy-POSTECH/2024-NC2-A31-PushToTalk/assets/102604192/0c4d46b2-dd49-4111-a0c4-4e143963ae7b">|<img width="200" alt="image" src="https://github.com/DeveloperAcademy-POSTECH/2024-NC2-A31-PushToTalk/assets/102604192/3ccda0bb-0a08-43d7-9b89-9a6447740450">|
+|<img width="300" alt="image" src="https://github.com/DeveloperAcademy-POSTECH/2024-NC2-A31-PushToTalk/assets/102604192/cae3e08d-be0f-4301-9a76-8e25d7c7ab71">|<img width="200" alt="image" src="https://github.com/DeveloperAcademy-POSTECH/2024-NC2-A31-PushToTalk/assets/102604192/0f836793-c079-4189-994a-8b81510d536e">|<img width="200" alt="image" src="https://github.com/DeveloperAcademy-POSTECH/2024-NC2-A31-PushToTalk/assets/102604192/0c4d46b2-dd49-4111-a0c4-4e143963ae7b">|<img width="200" alt="image" src="https://github.com/DeveloperAcademy-POSTECH/2024-NC2-A31-PushToTalk/assets/102604192/3ccda0bb-0a08-43d7-9b89-9a6447740450">|
 |사용자가 들어가있는 채널들의 목록을 확인할 수 있다.|[?] 버튼을 누르면서 "어디세요?"라고 물어볼 수 있다.|버튼을 누르는 순간 [!] 버튼으로 변경된다.|[+]버튼을 통해 채널명을 설정하고 원하는 사람을 채널에 추가할 수 있다.|
 ## 🛠️ About Code
 ### ChannelManager 세팅 및 특정 채널에 입장하기 위한 코드
