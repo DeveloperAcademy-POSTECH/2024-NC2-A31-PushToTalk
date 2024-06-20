@@ -41,4 +41,148 @@
 |<img width="200" alt="image" src="https://github.com/DeveloperAcademy-POSTECH/2024-NC2-A31-PushToTalk/assets/102604192/cae3e08d-be0f-4301-9a76-8e25d7c7ab71">|<img width="200" alt="image" src="https://github.com/DeveloperAcademy-POSTECH/2024-NC2-A31-PushToTalk/assets/102604192/0f836793-c079-4189-994a-8b81510d536e">|<img width="200" alt="image" src="https://github.com/DeveloperAcademy-POSTECH/2024-NC2-A31-PushToTalk/assets/102604192/0c4d46b2-dd49-4111-a0c4-4e143963ae7b">|<img width="200" alt="image" src="https://github.com/DeveloperAcademy-POSTECH/2024-NC2-A31-PushToTalk/assets/102604192/3ccda0bb-0a08-43d7-9b89-9a6447740450">|
 |사용자가 들어가있는 채널들의 목록을 확인할 수 있다.|[?] 버튼을 누르면서 "어디세요?"라고 물어볼 수 있다.|버튼을 누르는 순간 [!] 버튼으로 변경된다.|[+]버튼을 통해 채널명을 설정하고 원하는 사람을 채널에 추가할 수 있다.|
 ## 🛠️ About Code
-(핵심 코드에 대한 설명 추가)
+### ChannelManager 세팅 및 특정 채널에 입장하기 위한 코드
+```
+class ChannelManagerWrapper: NSObject, ObservableObject, PTChannelManagerDelegate, PTChannelRestorationDelegate {
+
+    func setupChannelManager() async {
+        do {
+            self.channelManager = try await PTChannelManager.channelManager(delegate: self, restorationDelegate: self)
+            print("Channel Manager Success")
+        } catch {
+            print("Failed to setup channel manager: \(error.localizedDescription), \(error)")
+        }
+    }
+    
+    func joinChannel(channelUUID: UUID, description: String) {
+        let channelImage = UIImage(named: "channelIcon")
+        let channelDescriptor = PTChannelDescriptor(name: description, image: channelImage)
+        
+        channelManager?.requestJoinChannel(channelUUID: channelUUID,
+                                           descriptor: channelDescriptor)
+        
+        print("join channel success")
+    }
+}
+```
+
+<br>
+
+### PTChannelManagerDelegate - Beginning or Ending Transmission
+```
+func channelManager(_ channelManager: PTChannelManager,
+                    channelUUID: UUID,
+                    didBeginTransmittingFrom source: PTChannelTransmitRequestSource) {
+    print("Did begin transmission from: \(source)")
+}
+    
+func channelManager(_ channelManager: PTChannelManager,
+                    channelUUID: UUID,
+                    didEndTransmittingFrom source: PTChannelTransmitRequestSource) {
+    print("Did end transmission from: \(source)")
+}
+    
+func channelManager(_ channelManager: PTChannelManager,
+                    failedToBeginTransmittingInChannel channelUUID: UUID,
+                    error: Error) {
+    let error = error as NSError
+        
+    switch error.code {
+    case PTChannelError.callActive.rawValue:
+        print("The system has another ongoing call that is preventing transmission.")
+    default:
+        break
+    }
+}
+    
+func stopTransmitting() {
+    channelManager?.stopTransmitting(channelUUID: channelUUID)
+    print("stop Transmitting")
+}
+    
+func channelManager(_ channelManager: PTChannelManager,
+                    failedToStopTransmittingInChannel channelUUID: UUID,
+                    error: Error) {
+    let error = error as NSError
+        
+    switch error.code {
+    case PTChannelError.transmissionNotFound.rawValue:
+        print("The user was not in a transmitting state")
+    default:
+        break
+    }
+}
+```
+
+<br>
+
+### PTChannelManagerDelegate - Joining and Leaving Channel
+```
+func channelManager(_ channelManager: PTChannelManager, didJoinChannel channelUUID: UUID, reason: PTChannelJoinReason) {
+    print("Joined channel with UUID: \(channelUUID)")
+}
+
+func channelManager(_ channelManager: PTChannelManager, didLeaveChannel channelUUID: UUID, reason: PTChannelLeaveReason) {
+    print("Left channel with UUID: \(channelUUID)")
+}
+
+func channelManager(_ channelManager: PTChannelManager, failedToJoinChannel channelUUID: UUID, error: Error) {
+    let error = error as NSError
+    
+    switch error.code {
+    case PTChannelError.channelLimitReached.rawValue:
+        print("The user has already joined a channel")
+    default:
+        break
+    }
+}
+```
+
+<br> 
+
+### PTChannelManagerDelegate - Activating and deactivating the audio session
+
+```
+func channelManager(_ channelManager: PTChannelManager,
+                    didActivate audioSession: AVAudioSession) {
+    print("Did activate audio session")
+}
+
+func channelManager(_ channelManager: PTChannelManager,
+                    didDeactivate audioSession: AVAudioSession) {
+    print("Did deactivate audio session")
+}
+```
+
+<br>
+
+### 버튼을 꾹 누르면 함수가 실행될 수 있도록 하는 코드 - LongPressGesture
+
+```
+@GestureState private var isDetectingLongPress = false
+    
+    /// Long Press Gesture
+    var longPress: some Gesture {
+        LongPressGesture(minimumDuration: 3)
+            .updating($isDetectingLongPress) { currentState, gestureState,
+                transaction in
+                gestureState = currentState
+                transaction.animation = Animation.easeIn(duration: 0.1)
+            }
+    }
+    
+    VStack {
+        Image(self.isDetectingLongPress ? .talkButtonPress : .talkButton)
+                    .padding(.bottom ,25)
+                    .gesture(longPress)
+    }
+     .onChange(of: isDetectingLongPress) {
+            if isDetectingLongPress {
+                channelManagerWrapper.startTransmitting()
+            }
+            else {
+                channelManagerWrapper.stopTransmitting()
+            }
+    }
+
+```
