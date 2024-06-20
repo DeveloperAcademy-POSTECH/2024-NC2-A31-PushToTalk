@@ -24,6 +24,7 @@ struct NewChannelView: View {
                     TextField(StringLiterals.Modal.channelName, text: $channelNameText)
                         .padding()
                         .font(.galmuri9_18)
+                        .foregroundStyle(.black)
                         .background(.button)
                         .overlay {
                             RoundedRectangle(cornerRadius: 10)

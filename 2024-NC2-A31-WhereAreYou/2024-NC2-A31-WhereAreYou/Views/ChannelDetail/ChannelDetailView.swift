@@ -8,136 +8,77 @@
 import SwiftUI
 
 struct ChannelDetailView: View {
+    @ObservedObject var channelManagerWrapper = ChannelManagerWrapper()
+    @State private var isTapped: Bool = false
+    let channel: Channel
+    
+    @GestureState private var isDetectingLongPress = false
+    
+    /// Long Press Gesture
+    var longPress: some Gesture {
+        LongPressGesture(minimumDuration: 3)
+            .updating($isDetectingLongPress) { currentState, gestureState,
+                transaction in
+                gestureState = currentState
+                transaction.animation = Animation.easeIn(duration: 0.1)
+            }
+    }
+    
     var body: some View {
-        VStack{
-            Text("24 NC2 엡터눈")
-                .font(.galmuri9_24)
-                .padding(.top ,20)
+        ZStack {
+            Color.white.ignoresSafeArea(.all)
             
-            // 멤버 이름
-            Rectangle()
-                .foregroundStyle(.button)
-                .frame(width: 360, height: 54)
-                .cornerRadius(10)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.black, lineWidth: 2)
-                        .overlay(alignment: .leading) {
-                    Text("이민아 Dora")
-                        .font(.galmuri9_18)
-                        .padding(.leading, 20)
-                        }
-                )
-                .padding(.top)
-            
-            // 멤버 이름
-            Rectangle()
-                .foregroundStyle(.button)
-                .frame(width: 360, height: 54)
-                .cornerRadius(10)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.black, lineWidth: 2)
-                        .overlay(alignment: .leading) {
-                    Text("구리스")
-                        .font(.galmuri9_18)
-                        .padding(.leading, 20)
-                        }
-                )
-                .padding(.top, 10)
-            
-            // 멤버 이름
-            Rectangle()
-                .foregroundStyle(.button)
-                .frame(width: 360, height: 54)
-                .cornerRadius(10)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.black, lineWidth: 2)
-                        .overlay(alignment: .leading) {
-                    Text("린")
-                        .font(.galmuri9_18)
-                        .padding(.leading, 20)
-                        }
-                )
-                .padding(.top, 10)
-            
-            // 멤버 이름
-            Rectangle()
-                .foregroundStyle(.button)
-                .frame(width: 360, height: 54)
-                .cornerRadius(10)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.black, lineWidth: 2)
-                        .overlay(alignment: .leading) {
-                    Text("브리")
-                        .font(.galmuri9_18)
-                        .padding(.leading, 20)
-                        }
-                )
-                .padding(.top, 10)
-            
-            // 멤버 이름
-            Rectangle()
-                .foregroundStyle(.button)
-                .frame(width: 360, height: 54)
-                .cornerRadius(10)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.black, lineWidth: 2)
-                        .overlay(alignment: .leading) {
-                    Text("제로")
-                        .font(.galmuri9_18)
-                        .padding(.leading, 20)
-                        }
-                )
-                .padding(.top, 10)
-            
-            // 멤버 이름
-            Rectangle()
-                .foregroundStyle(.button)
-                .frame(width: 360, height: 54)
-                .cornerRadius(10)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.black, lineWidth: 2)
-                        .overlay(alignment: .leading) {
-                    Text("큐")
-                        .font(.galmuri9_18)
-                        .padding(.leading, 20)
-                        }
-                )
-                .padding(.top, 10)
-            
-//            Rectangle()
-//                .foregroundStyle(.button)
-//                .frame(width: 360, height: 54)
-//                .cornerRadius(10)
-//                .overlay(
-//                    RoundedRectangle(cornerRadius: 10)
-//                        .stroke(Color.black, lineWidth: 2)
-//                        .overlay(alignment: .leading) {
-//                    Text("큐")
-//                        .font(.galmuri9)
-//                        .padding(.leading, 20)
-//                        }
-//                )
-//                .padding(.top, 10)
-            
-            Spacer()
-            
-            Image(.talkButton)
-                .padding(.bottom ,25)
-            
+            VStack{
+                Text(channel.description)
+                    .font(.galmuri9_24)
+                    .foregroundStyle(.black)
+                    .padding(.top ,20)
+                
+                ForEach(channel.members, id: \.self) { member in
+                    Rectangle()
+                        .foregroundStyle(.button)
+                        .frame(width: 360, height: 54)
+                        .cornerRadius(10)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.black, lineWidth: 2)
+                                .overlay(alignment: .leading) {
+                                    Text(member.name)
+                                        .font(.galmuri9_18)
+                                        .foregroundStyle(.black)
+                                        .padding(.leading, 20)
+                                }
+                        )
+                        .padding(.vertical, 5)
+                }
+                
+                Spacer()
+                
+                Image(self.isDetectingLongPress ? .talkButtonPress : .talkButton)
+                    .padding(.bottom ,25)
+                    .gesture(longPress)
+            }
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: MyBackButton(color: .pointBlue))
         }
-                                .navigationBarBackButtonHidden(true)
-                                .navigationBarItems(leading: MyBackButton(color: Color("pointBlueColor")))
+        .task {
+            await channelManagerWrapper.setupChannelManager()
+            channelManagerWrapper.joinChannel(channelUUID: UUID(uuidString: channel.id)!,
+                                              description: channel.description)
+        }
+        .onChange(of: isDetectingLongPress) {
+            if isDetectingLongPress {
+                channelManagerWrapper.startTransmitting()
+            }
+            else {
+                channelManagerWrapper.stopTransmitting()
+            }
+        }
     }
 }
 
 
 
 #Preview {
-    ChannelDetailView()
+    ChannelDetailView(channel: channels[0])
 }
