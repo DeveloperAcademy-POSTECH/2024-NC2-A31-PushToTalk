@@ -53,9 +53,9 @@ struct ChannelListView: View {
                     NewChannelView(isPresented: $isPresented)
                 })
             }
-            .task {
-                await channelManagerWrapper.setupChannelManager()
-            }
+//            .task {
+//                await channelManagerWrapper.setupChannelManager()
+//            }
         }
     }
 }

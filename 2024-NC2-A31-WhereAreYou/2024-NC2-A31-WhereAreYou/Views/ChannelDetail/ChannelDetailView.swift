@@ -61,9 +61,18 @@ struct ChannelDetailView: View {
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: MyBackButton(color: .pointBlue))
         }
-        .onAppear {
+        .task {
+            await channelManagerWrapper.setupChannelManager()
             channelManagerWrapper.joinChannel(channelUUID: UUID(uuidString: channel.id)!,
                                               description: channel.description)
+        }
+        .onChange(of: isDetectingLongPress) {
+            if isDetectingLongPress {
+                channelManagerWrapper.startTransmitting()
+            }
+            else {
+                channelManagerWrapper.stopTransmitting()
+            }
         }
     }
 }

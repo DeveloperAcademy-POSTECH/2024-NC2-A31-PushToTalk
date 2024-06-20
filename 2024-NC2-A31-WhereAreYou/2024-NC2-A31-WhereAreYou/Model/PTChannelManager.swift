@@ -17,7 +17,7 @@ class ChannelManagerWrapper: NSObject, ObservableObject, PTChannelManagerDelegat
     @Published var isTransmitting = false
     
     func channelDescriptor(restoredChannelUUID channelUUID: UUID) -> PTChannelDescriptor {
-        let channelImage = UIImage(named: "ChannelIcon")
+        let channelImage = UIImage(named: "channelIcon")
         return PTChannelDescriptor(name: "Restored Channel", image: channelImage)
     }
     
@@ -30,12 +30,14 @@ class ChannelManagerWrapper: NSObject, ObservableObject, PTChannelManagerDelegat
         }
     }
     
-    func joinChannel(channelUUID: UUID) {
-        let channelImage = UIImage(named: "ChannelIcon")
-        let channelDescriptor = PTChannelDescriptor(name: "Awesome Crew", image: channelImage)
+    func joinChannel(channelUUID: UUID, description: String) {
+        let channelImage = UIImage(named: "channelIcon")
+        let channelDescriptor = PTChannelDescriptor(name: description, image: channelImage)
         
         channelManager?.requestJoinChannel(channelUUID: channelUUID,
                                            descriptor: channelDescriptor)
+        
+        print("join channel success")
     }
     
     func channelManager(_ channelManager: PTChannelManager, didJoinChannel channelUUID: UUID, reason: PTChannelJoinReason) {
@@ -82,6 +84,7 @@ class ChannelManagerWrapper: NSObject, ObservableObject, PTChannelManagerDelegat
     
     func startTransmitting() {
         channelManager?.requestBeginTransmitting(channelUUID: channelUUID)
+        print("start Transmitting")
     }
     
     func channelManager(_ channelManager: PTChannelManager,
@@ -99,6 +102,7 @@ class ChannelManagerWrapper: NSObject, ObservableObject, PTChannelManagerDelegat
     
     func stopTransmitting() {
         channelManager?.stopTransmitting(channelUUID: channelUUID)
+        print("stop Transmitting")
     }
     
     func channelManager(_ channelManager: PTChannelManager,
